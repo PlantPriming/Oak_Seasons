@@ -1,0 +1,6 @@
+SNPs were identified using CGmapTools (v0.1.2) with standard parameters via the Bayesian strategy using dynamic p-value (Guo et al., 2018). 
+Trimming and quality control were carried out using Fastp (v0.23.4) (Chen et al., 2018) and FastQC (v0.12.1). 
+Indexing, alignment, and mapping were performed using Picard (v2.27.4), Bismark (v0.24.2) (Krueger & Andrews, 2011), and Bowtie2 (v2.5.1) (Langmead & Salzberg, 2012), with further processing on the resulting BAM files (adding ReadGroups and sorting by co-ordinates) using Picard AddOrReplaceReadGroups and SortSam. 
+This SNP calling pipeline was performed on all samples processed in parallel via Nextflow (v25.04.6) (Di Tommaso et al., 2017). 
+The resulting VCF output files were merged, filtered by read depth, and converted to BED format using PLINK (v1.90b6.24) (Purcell et al., 2007), then imported into R (v4.3.2). 
+Further filtering based on minor allele frequency (MAF) and principal component analysis were performed using the SNPRelate package (v1.6.4) (Zheng et al., 2012) and visualised by ggplot2 (v3.5.2) (Wickham, 2016).

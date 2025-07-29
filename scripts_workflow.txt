@@ -1,0 +1,25 @@
+Pipeline:
+
+
+1: Pre-Index reference genome and create Picard Dictionary 
+(Indexing the reference genome and creating picard dictionary only needs to be done once before submiting array job.)
+pre_index.sh 
+picard_dict.sh
+
+2: Submit array script 
+multiple_job.sh
+
+3: Confirm output - confirm all jobs in the array ran successfully and generates the expected number of vcf files
+post_vcf_scripts/confirm_output.sh
+
+4: Merge lanes - concat each vcf into a single vcf then merge the lanes.
+post_vcf_scripts/merge_lanes.sh
+
+5: Filter VCF - remove snp where at least one sample has less than a specific Read Depth (DP).
+post_vcf_scripts/cgmap_cov_filt-plink_tree.sh
+
+6: Filter Allele - remove snp where ref is C and alt is T or ref is G and alt is A.
+post_vcf_scripts/filter_allele_array.sh
+
+7: PCA Visualisation - run PCA on the filtered vcf plink files - filter by MAF using SNPRelate.
+post_vcf_scripts/plinkpca.Rmd
